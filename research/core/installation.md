@@ -1,57 +1,96 @@
 # OpenClaw Installation and Setup
 
-> Last updated: 2026-03-20 | Version: v2026.3.13-1
+> Last updated: 2026-03-20 | Source: docs.openclaw.ai/install
 
 ## Requirements
 
-- Node 22 or newer
+- Node 24 (recommended) or Node 22.16+
+- macOS, Linux, or Windows (WSL2 preferred)
+- 2GB+ RAM for Docker deployments
 
-## Install
+## Installation Methods
+
+### Method 1: Installer Script (Recommended)
+
+```bash
+# macOS / Linux / WSL2
+curl -fsSL https://openclaw.ai/install.sh | bash
+
+# Windows PowerShell
+iwr -useb https://openclaw.ai/install.ps1 | iex
+
+# Skip onboarding
+curl -fsSL https://openclaw.ai/install.sh | bash -s -- --no-onboard
+```
+
+### Method 2: npm / pnpm
 
 ```bash
 npm install -g openclaw@latest
 openclaw onboard --install-daemon
+
+# pnpm
+pnpm add -g openclaw@latest
+pnpm approve-builds -g    # Required for pnpm
+openclaw onboard --install-daemon
 ```
 
-## Workspace Structure
+### Method 3: Docker
 
-Default location: `~/.openclaw/workspace/`
+```bash
+./scripts/docker/setup.sh
+# Or manual:
+docker build -t openclaw:local -f Dockerfile .
+docker compose run --rm openclaw-cli onboard
+docker compose up -d openclaw-gateway
+```
 
-| File | Purpose |
-|---|---|
-| `AGENTS.md` | Agent definitions, behaviour, instructions |
-| `SOUL.md` | Deep personality traits, long-term goals, rules |
-| `TOOLS.md` | Guidance on tool usage |
-| `IDENTITY.md` | Identity configuration |
-| `HEARTBEAT.md` | Routine task checklist (plain English) |
-| `skills/<name>/SKILL.md` | Individual skill definitions |
+Pre-built images: `ghcr.io/openclaw/openclaw:latest` (also `main`, `<version>` tags)
 
-## Core Config
+### Method 4: From Source
 
-`~/.openclaw/openclaw.json`
+```bash
+git clone https://github.com/openclaw/openclaw.git
+cd openclaw && pnpm install && pnpm ui:build && pnpm build && pnpm link --global
+pnpm openclaw onboard --install-daemon
+```
 
-Requires Gateway restart or `config.patch` RPC to apply changes.
+### Method 5: GitHub Main Branch
 
-## Gateway
+```bash
+npm install -g github:openclaw/openclaw#main
+```
 
-OpenClaw's control plane. Default port: **18789**.
+### Method 6: Nix
 
-## Key Config Options
+Nix flake support available for declarative configuration.
 
-| Setting | What It Controls |
-|---|---|
-| `agents.defaults.heartbeat.every` | Heartbeat interval (default 30m) |
-| `agents.defaults.heartbeat.prompt` | Custom heartbeat prompt |
-| `agents.defaults.workspace` | Workspace directory path |
-| `agents.list[]` | Per-agent configurations |
-| Heartbeat target | `"none"`, `"last"`, or specific channel |
-| Active hours + timezone | When heartbeat can run |
-| Gateway port | Default 18789 |
+## Version Management
 
-## TODO: Research Gaps
+```bash
+openclaw --version                    # Check version
+openclaw update                       # Update to latest
+openclaw update --channel stable      # Tagged releases (vYYYY.M.D)
+openclaw update --channel beta        # Prerelease
+openclaw update --channel dev         # Main branch head
+openclaw doctor                       # Verify after update
+```
 
-- [ ] Full `openclaw.json` schema documentation
-- [ ] Docker installation method
-- [ ] Multi-workspace setup patterns
-- [ ] Upgrade path between versions
-- [ ] Backup and restore procedures
+npm dist-tags: `latest` (stable), `beta`, `dev`
+
+## Rollback
+
+[Unverified] No dedicated rollback command. Pin to specific version: `npm install -g openclaw@<version>`. Docker users can pull specific image tags.
+
+## Reset and Uninstall
+
+```bash
+openclaw reset --scope config                    # Config only
+openclaw reset --scope config+creds+sessions     # Config + credentials + sessions
+openclaw reset --scope full                      # Everything
+
+openclaw uninstall --service     # Service only
+openclaw uninstall --state       # State directory
+openclaw uninstall --workspace   # Workspace
+openclaw uninstall --all         # Everything
+```
