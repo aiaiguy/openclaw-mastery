@@ -1,0 +1,29 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Sensitive
+.env
+*.pem
+*.key
+credentials.*
+secrets.*
+
+# OpenClaw sensitive config (if any gets copied here for reference)
+openclaw-secrets/
+
+# Node (if we prototype anything)
+node_modules/
+package-lock.json
+
+# Build artifacts
+dist/
+build/
+*.psd
