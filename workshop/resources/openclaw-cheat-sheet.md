@@ -29,15 +29,15 @@ You have three choices:
 
 ## The 60-Second Value Case
 
-| Use Case | What It Does | Monthly Cost |
-|----------|-------------|-------------|
-| Morning briefing | Summarises overnight emails, news, and calendar | ~$10 |
-| Email triage | Reads, prioritises, drafts responses | ~$15 |
-| Meeting prep | Researches attendees, pulls context, writes briefs | ~$10 |
-| Research assistant | Browses web, summarises findings, monitors topics | ~$20 |
-| Multi-channel comms | Manages WhatsApp, Slack, email from one agent | ~$25 |
+| Use Case | What It Does | Monthly Cost (AUD) |
+|----------|-------------|-------------------|
+| Morning briefing | Summarises overnight emails, news, and calendar | ~$15 |
+| Email triage | Reads, prioritises, drafts responses | ~$20 |
+| Meeting prep | Researches attendees, pulls context, writes briefs | ~$15 |
+| Research assistant | Browses web, summarises findings, monitors topics | ~$30 |
+| Multi-channel comms | Manages WhatsApp, Slack, email from one agent | ~$35 |
 
-Compare that to a part-time VA at $40/hr or enterprise automation at $500/month.
+A well-configured personal agent runs $20-70/month AUD. Compare that to a part-time VA at $40/hr or enterprise automation at $500/month.
 
 ---
 
